@@ -29,4 +29,10 @@ public class Line {
 		return new Point(xCo*t + xPoint, yCo*t + yPoint, zCo*t + zPoint);
 	}
 	
+	public Line unit()
+	{
+		double dist = Math.sqrt(Math.pow(xCo, 2) + Math.pow(yCo, 2) + Math.pow(zCo, 2));
+		return new Line(xCo/dist,yCo/dist,zCo/dist,0,0,0);
+	}
+	
 }

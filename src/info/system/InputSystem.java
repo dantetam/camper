@@ -144,9 +144,11 @@ public class InputSystem extends BaseSystem {
 	//private int num = 0;
 	public void passLeftMouseClick(float mouseX, float mouseY)
 	{
-		Line lv = main.player.getLookVector();
+		Line lv = main.player.getLookVector(); //.unit();
+		//lv = new Line(lv.xCo/10,lv.yCo/10,lv.zCo/10,0,0,0);
 		Bullet b = new Bullet((float)lv.xCo, (float)lv.yCo, (float)lv.zCo);
 		b.move(main.player.posX, main.player.posY, main.player.posZ);
+		main.level.parts.add(b);
 	}
 
 	public void passRightMouseClick(float mouseX, float mouseY)

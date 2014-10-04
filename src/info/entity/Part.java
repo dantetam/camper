@@ -6,6 +6,12 @@ public class Part {
 	public float sizeX, sizeY, sizeZ;
 	public float rotX, rotY, rotZ;
 	public Color color;
+	public long id;
+	
+	public Part()
+	{
+		id = (long)(System.currentTimeMillis()*Math.random()*Math.random());
+	}
 	
 	public void move(float x, float y, float z)
 	{
@@ -32,6 +38,11 @@ public class Part {
 		return x >= posX - sizeX/2 && x <= posX + sizeX/2 &&
 				 y >= posY - sizeY/2 && y <= posY + sizeY/2 &&
 				 z >= posZ - sizeZ/2 && z <= posZ + sizeZ/2;
+	}
+	
+	public boolean equals(Part other)
+	{
+		return id == other.id;
 	}
 	
 }

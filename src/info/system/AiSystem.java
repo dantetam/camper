@@ -1,5 +1,6 @@
 package info.system;
 
+import info.entity.Bullet;
 import info.entity.Enemy;
 import info.render.Main;
 
@@ -11,7 +12,7 @@ public class AiSystem extends BaseSystem {
 	
 	public void tick()
 	{
-		for (int i = 0; i < main.level.occupants.size(); i++)
+		for (int i = main.level.occupants.size() - 1; i >= 0; i--)
 		{
 			if (main.level.occupants.get(i) instanceof Enemy)
 			{
@@ -22,6 +23,19 @@ public class AiSystem extends BaseSystem {
 					move(en,(float)(500*Math.random()),(float)(500*Math.random()));
 				}
 				en.tick();
+				if (en.equals(main.renderSystem.highlightedPart))
+				{
+					main.level.occupants.remove(i);
+				}
+			}
+		}
+		for (int i = 0; i < main.level.parts.size(); i++)
+		{
+			if (main.level.parts.get(i) instanceof Bullet)
+			{
+				Bullet b = (Bullet)main.level.parts.get(i);
+				b.move(b.velX, b.velY, b.velZ);
+				//b.move(main.player.posX, main.player.posY, main.player.posZ);
 			}
 		}
 	}

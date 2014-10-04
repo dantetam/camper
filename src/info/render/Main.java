@@ -57,6 +57,7 @@ public class Main extends PApplet {
 		{
 			systems.get(i).tick();
 		}
+		println(renderSystem.highlightedPart);
 	}
 	
 	public void fill(Color c)

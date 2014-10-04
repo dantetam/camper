@@ -8,7 +8,7 @@ public class Player {
 	public float posX, posY, posZ;
 	public float tarX, tarY, tarZ;
 	public float rotY, rotVertical;
-	
+
 	public Player()
 	{
 		posX = 100; posY = 10; posZ = 100;
@@ -16,7 +16,7 @@ public class Player {
 		rotY = 0;
 		rotVertical = 0;
 	}
-	
+
 	public void update()
 	{
 		float dist = 100;
@@ -33,16 +33,42 @@ public class Player {
 	public boolean lookingAtEntity(Part en)
 	{
 		Line lookVector = getLookVector();
-		Plane plane = (planeFromPoints(
+		//Don't be concerned with the "y planes"
+		/*Plane plane = (planeFromPoints(
 				new Point(en.posX,en.posY - en.sizeY/2,en.posZ),
 				new Point(en.posX+en.sizeY/2,en.posY - en.sizeY/2,en.posZ),
 				new Point(en.posX+en.sizeY/2,en.posY - en.sizeY/2,en.posZ+en.sizeZ/2)
-				));
-		Point intersection = plane.intersect(lookVector);
+				));*/
+		//Point intersection = plane.intersect(lookVector);
 
-		if (en.within(intersection.x,intersection.y,intersection.z))
+		Plane[] faces = new Plane[4];
+		faces[0] = (planeFromPoints(
+				new Point(en.posX + en.sizeX/2,en.posY,en.posZ),
+				new Point(en.posX + en.sizeX/2,en.posY+en.sizeY/2,en.posZ),
+				new Point(en.posX + en.sizeX/2,en.posY+en.sizeY/2,en.posZ+en.sizeZ/2)
+				));
+		faces[1] = (planeFromPoints(
+				new Point(en.posX - en.sizeX/2,en.posY,en.posZ),
+				new Point(en.posX - en.sizeX/2,en.posY+en.sizeY/2,en.posZ),
+				new Point(en.posX - en.sizeX/2,en.posY+en.sizeY/2,en.posZ+en.sizeZ/2)
+				));
+		faces[2] = (planeFromPoints(
+				new Point(en.posX,en.posY,en.posZ + en.sizeZ/2),
+				new Point(en.posX,en.posY+en.sizeY/2,en.posZ + en.sizeZ/2),
+				new Point(en.posX+en.sizeX/2,en.posY+en.sizeY/2,en.posZ + en.sizeZ/2)
+				));
+		faces[3] = (planeFromPoints(
+				new Point(en.posX,en.posY,en.posZ - en.sizeZ/2),
+				new Point(en.posX,en.posY+en.sizeY/2,en.posZ - en.sizeZ/2),
+				new Point(en.posX+en.sizeX/2,en.posY+en.sizeY/2,en.posZ - en.sizeZ/2)
+				));
+		for (int i = 0; i < faces.length; i++)
 		{
-			return true;
+			Point intersection = faces[i].intersect(lookVector);
+			if (en.within(intersection.x,intersection.y,intersection.z))
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -57,5 +83,5 @@ public class Player {
 		//System.out.println(d + " " + e);
 		return new Plane(x,y,z,d);
 	}
-	
+
 }
