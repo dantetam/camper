@@ -1,12 +1,13 @@
 package info.system;
 
+import info.entity.GameEntity;
 import info.entity.Model;
 import info.entity.Part;
 import info.render.Main;
 
 public class RenderSystem extends BaseSystem {
 
-	public Model highlightedModel;
+	public GameEntity highlightedEntity;
 	public Part highlightedPart;
 	
 	public RenderSystem(Main main) {
@@ -21,7 +22,7 @@ public class RenderSystem extends BaseSystem {
 				main.player.tarX,main.player.tarY,main.player.tarZ,
 				0,-1,0);
 		main.perspective(3.14F/3,15F/9F,1,10000);
-		highlightedModel = null; highlightedPart = null;
+		highlightedEntity = null; highlightedPart = null;
 		for (int i = 0; i < main.level.occupants.size(); i++)
 		{
 			Model model = main.level.occupants.get(i).model;
@@ -31,7 +32,7 @@ public class RenderSystem extends BaseSystem {
 				render(model,part,model.globalRotate);
 				if (main.player.lookingAtEntity(part))
 				{
-					highlightedModel = model;
+					highlightedEntity = main.level.occupants.get(i);
 					highlightedPart = part;
 				}
 			}

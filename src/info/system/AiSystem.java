@@ -2,6 +2,7 @@ package info.system;
 
 import info.entity.Bullet;
 import info.entity.Enemy;
+import info.entity.Part;
 import info.render.Main;
 
 public class AiSystem extends BaseSystem {
@@ -9,7 +10,7 @@ public class AiSystem extends BaseSystem {
 	public AiSystem(Main main) {
 		super(main);
 	}
-	
+
 	public void tick()
 	{
 		for (int i = main.level.occupants.size() - 1; i >= 0; i--)
@@ -23,10 +24,17 @@ public class AiSystem extends BaseSystem {
 					move(en,(float)(500*Math.random()),(float)(500*Math.random()));
 				}
 				en.tick();
-				if (en.equals(main.renderSystem.highlightedPart))
+				/*if (main.renderSystem.highlightedPart != null)
 				{
-					main.level.occupants.remove(i);
-				}
+					for (int j = 0; j < en.model.parts.size(); j++)
+					{
+						Part p = en.model.parts.get(j);
+						if (p.equals(main.renderSystem.highlightedPart))
+						{
+							main.level.occupants.remove(i);
+						}
+					}
+				}*/
 			}
 		}
 		for (int i = 0; i < main.level.parts.size(); i++)
@@ -39,7 +47,7 @@ public class AiSystem extends BaseSystem {
 			}
 		}
 	}
-	
+
 	public void move(Enemy en, float targetX, float targetY)
 	{
 		//float targetX = 500*(float)Math.random(), targetY = 500*(float)Math.random();
@@ -54,5 +62,5 @@ public class AiSystem extends BaseSystem {
 		en.model.globalRotate = angle;
 		en.queueOrder("move",ux,0,uy,(int)(Math.random()*250 + 500));
 	}
-	
+
 }

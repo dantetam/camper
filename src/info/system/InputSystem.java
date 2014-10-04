@@ -1,6 +1,7 @@
 package info.system;
 
 import info.entity.Bullet;
+import info.entity.GameEntity;
 import info.render.Main;
 import info.vector.Line;
 
@@ -149,6 +150,12 @@ public class InputSystem extends BaseSystem {
 		Bullet b = new Bullet((float)lv.xCo, (float)lv.yCo, (float)lv.zCo);
 		b.move(main.player.posX, main.player.posY, main.player.posZ);
 		main.level.parts.add(b);
+		
+		GameEntity en = main.renderSystem.highlightedEntity;
+		if (en != null)
+		{
+			main.level.occupants.remove(en);
+		}
 	}
 
 	public void passRightMouseClick(float mouseX, float mouseY)
