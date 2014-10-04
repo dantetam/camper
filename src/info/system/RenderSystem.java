@@ -1,5 +1,6 @@
 package info.system;
 
+import info.entity.Model;
 import info.entity.Part;
 import info.render.Main;
 
@@ -19,16 +20,19 @@ public class RenderSystem extends BaseSystem {
 		main.perspective(3.14F/3,15F/9F,1,10000);
 		for (int i = 0; i < main.level.occupants.size(); i++)
 		{
-			for (int j = 0; j < main.level.occupants.get(i).model.parts.size(); j++)
+			Model model = main.level.occupants.get(i).model;
+			for (int j = 0; j < model.parts.size(); j++)
 			{
-				Part part = main.level.occupants.get(i).model.parts.get(j);
-				render(part);
+				Part part = model.parts.get(j);
+				render(part,model.globalRotate);
 			}
 		}
 	}
 	
-	public void render(Part p)
+	public void render(Part p, float globalRotate)
 	{
+		main.pushMatrix();
+		main.rotateY(globalRotate);
 		main.pushMatrix();
 		main.translate(p.posX, p.posY, p.posZ);
 		main.rotateX(p.rotX);
@@ -36,6 +40,7 @@ public class RenderSystem extends BaseSystem {
 		main.rotateZ(p.rotZ);
 		main.fill(p.color);
 		main.box(p.sizeX, p.sizeY, p.sizeZ);
+		main.popMatrix();
 		main.popMatrix();
 	}
 	

@@ -128,7 +128,7 @@ public class EntityData extends PApplet {
 			Part p = new Part();
 			p.color = new Color((int)f[0]);
 			p.moveTo(f[1],f[2],f[3]);
-			p.rotate(f[4],f[5],f[6]);
+			p.rotate((float)Math.toRadians(f[4]),(float)Math.toRadians(f[5]),(float)Math.toRadians(f[6]));
 			p.size(f[7],f[8],f[9]);
 			temp.parts.add(p);
 		}

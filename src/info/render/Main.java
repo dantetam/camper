@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import data.EntityData;
 import info.entity.Color;
+import info.entity.Enemy;
 import info.entity.GameEntity;
 import info.entity.Player;
 import info.level.Level;
@@ -15,6 +16,7 @@ public class Main extends PApplet {
 	public ArrayList<BaseSystem> systems;
 	public RenderSystem renderSystem;
 	public InputSystem inputSystem;
+	public AiSystem aiSystem;
 	
 	public Level level;
 	public Player player;
@@ -36,8 +38,10 @@ public class Main extends PApplet {
 		systems = new ArrayList<BaseSystem>();
 		renderSystem = new RenderSystem(this);
 		inputSystem = new InputSystem(this);
+		aiSystem = new AiSystem(this);
 		
 		systems.add(inputSystem);
+		systems.add(aiSystem);
 		systems.add(renderSystem);
 		
 		newGameEntity();
@@ -59,7 +63,7 @@ public class Main extends PApplet {
 	
 	public void newGameEntity()
 	{
-		GameEntity grunt0 = new GameEntity(data.getModel("Grunt"));
+		Enemy grunt0 = new Enemy(data.getModel("Grunt"),data.getModel("Grunt"));
 		level.occupants.add(grunt0);
 	}
 	
@@ -68,6 +72,7 @@ public class Main extends PApplet {
 		if (mouseButton == LEFT)
 		{
 			inputSystem.queueLeftClick(mouseX, mouseY);
+			//level.occupants.get(0).model.moveCenter(50, 50, 50);
 		}
 		else if (mouseButton == RIGHT)
 		{
