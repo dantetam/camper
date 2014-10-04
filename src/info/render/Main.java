@@ -15,6 +15,7 @@ public class Main extends PApplet {
 
 	public ArrayList<BaseSystem> systems;
 	public RenderSystem renderSystem;
+	public MenuSystem menuSystem;
 	public InputSystem inputSystem;
 	public AiSystem aiSystem;
 	
@@ -37,12 +38,14 @@ public class Main extends PApplet {
 		
 		systems = new ArrayList<BaseSystem>();
 		renderSystem = new RenderSystem(this);
+		menuSystem = new MenuSystem(this);
 		inputSystem = new InputSystem(this);
 		aiSystem = new AiSystem(this);
 		
 		systems.add(inputSystem);
 		systems.add(aiSystem);
 		systems.add(renderSystem);
+		systems.add(menuSystem);
 		
 		newGameEntity();
 	}

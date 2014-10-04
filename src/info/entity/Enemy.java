@@ -2,10 +2,12 @@ package info.entity;
 
 import java.util.ArrayList;
 
+import processing.core.PApplet;
+
 public class Enemy extends GameEntity {
 
 	public Model frameDead;
-	private ArrayList<Order> orders;
+	public Order order;
 	
 	public int health;
 	
@@ -14,38 +16,94 @@ public class Enemy extends GameEntity {
 		super(model0);
 		this.frameDead = frameDead;
 		
-		orders = new ArrayList<Order>();
+		order = null;
 		health = 100;
 	}
 	
 	public void queueOrder(String type, float... data)
 	{
-		orders.add(new Order(type, data));
+		for (int i = 0; i < data.length; i++)
+		{
+			System.out.print(data[i] + " ");
+		}
+		System.out.println();
+		order = (new Order(type, data));
 	}
 	
-	public boolean available()
-	{
-		return orders.size() == 0;
-	}
-	
+	public float lastDist = 10000;
 	public void tick()
 	{
-		if (orders.size() > 0)
+		if (order != null)
 		{
-			if (orders.get(0).equals("move"))
+			if (order.equals("move"))
 			{
 				float[] center = model.center();
-				float[] target = orders.get(0).data;
-				float speed = 1.5F;
-				float angle = (float)Math.atan2(target[0] - center[0], target[2] - center[2]);
-				super.model.moveCenter(center[0] + speed*(float)Math.sin(angle), 0, center[2] + speed*(float)Math.cos(angle));
-				System.out.println("*");
-				System.out.println(center[0] + " " + center[1] + " " + center[2]);
-				center = model.center();
-				if (dist(center[0],target[0],center[2],target[2]) < 5)
+				float[] data = order.data;
+				//float speed = 1.5F;
+				
+				super.model.moveCenter(center[0] + data[0], 0, center[2] + data[2]);
+				order.data[3]--;
+				if (order.data[3] <= 0)
 				{
-					orders.remove(0);
+					order = null; return;
 				}
+				
+				/*
+				//float angle = (float)Math.atan2(target[0] - center[0], target[2] - center[2]);
+				//super.model.moveCenter(target[0] - center[0],target[2] - center[2]);
+				//System.out.println(PApplet.dist(center[0],center[2],target[0],target[2]));
+				//System.out.println(center[0] + " " + center[2] + ";" + target[0] + " " + target[2]);
+				
+				//super.model.moveCenter(center[0] + speed*(float)Math.cos(angle), 0, center[2] + speed*(float)Math.sin(angle));
+				super.model.moveCenter(center[0] + speed*target[0], 0, center[2] + speed*target[2]);
+				//System.out.println("*");
+				center = model.center();
+				float dist = PApplet.dist(center[0],center[2],target[3],target[5]);
+				
+				if (Math.random() < 0.01)
+				{
+					System.out.println(center[0] + " " + center[2] + " " + target[3] + " " + target[5]);
+					System.out.println(dist);
+				}
+				if (dist > lastDist)
+				{
+					System.out.println("finished order " + center[2] + " " + target[2]);
+					order = null;
+					return;
+				}
+				lastDist = dist;
+				if (dist < 50)
+				{
+					System.out.println("finished order " + target[3] + " " + target[5]);
+					order = null;
+					return;
+				}
+				if (center[0] <= -500)
+				{
+					order = null;
+					super.model.moveCenter(-500, 0, center[2]);
+					return;
+				}
+				else if (center[2] <= -500)
+				{
+					order = null;
+					super.model.moveCenter(center[0],0,-500);
+					return;
+				}
+				else if (center[0] >= 500)
+				{
+					order = null;
+					super.model.moveCenter(500, 0, center[2]);
+					return;
+				}
+				else if (center[2] >= 500)
+				{
+					order = null;
+					super.model.moveCenter(center[0],0,500);
+					return;
+				}*/
+				//System.out.println(center[2] + " " + target[2]);
+				//System.out.println(dist(center[0],target[0],center[2],target[2]));
 			}
 		}
 	}

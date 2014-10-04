@@ -23,7 +23,7 @@ public class Model {
 			//Displacement d = new Displacement(parts.get(i), center);
 			parts.get(i).move(d.x,d.y,d.z);
 			//System.out.println((center[0] + d.x) + " " + (center[1] + d.y) + " " + (center[2] + d.z));
-			System.out.println(parts.get(i).posX + " " + parts.get(i).posY + " " + parts.get(i).posZ);
+			//System.out.println(parts.get(i).posX + " " + parts.get(i).posY + " " + parts.get(i).posZ);
 		}
 	}
 

@@ -27,6 +27,9 @@ public class RenderSystem extends BaseSystem {
 				render(model,part,model.globalRotate);
 			}
 		}
+		main.translate(500,0,500);
+		main.fill(255,0,0);
+		main.box(25);
 	}
 	
 	public void render(Model m, Part p, float globalRotate)

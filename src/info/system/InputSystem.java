@@ -1,6 +1,8 @@
 package info.system;
 
+import info.entity.Bullet;
 import info.render.Main;
+import info.vector.Line;
 
 import java.util.ArrayList;
 
@@ -142,7 +144,9 @@ public class InputSystem extends BaseSystem {
 	//private int num = 0;
 	public void passLeftMouseClick(float mouseX, float mouseY)
 	{
-		
+		Line lv = main.player.getLookVector();
+		Bullet b = new Bullet((float)lv.xCo, (float)lv.yCo, (float)lv.zCo);
+		b.move(main.player.posX, main.player.posY, main.player.posZ);
 	}
 
 	public void passRightMouseClick(float mouseX, float mouseY)
