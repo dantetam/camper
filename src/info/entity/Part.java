@@ -27,4 +27,11 @@ public class Part {
 		rotX = x; rotY = y; rotZ = z;
 	}
 	
+	public boolean within(double x, double y, double z)
+	{
+		return x >= posX - sizeX/2 && x <= posX + sizeX/2 &&
+				 y >= posY - sizeY/2 && y <= posY + sizeY/2 &&
+				 z >= posZ - sizeZ/2 && z <= posZ + sizeZ/2;
+	}
+	
 }
