@@ -18,11 +18,12 @@ public class AiSystem extends BaseSystem {
 				Enemy en = (Enemy)main.level.occupants.get(i);
 				if (en.available())
 				{
-					float targetX = 500, targetY = 500;
+					//float targetX = 500*(float)Math.random(), targetY = 500*(float)Math.random();
+					float targetX = -500, targetY = -500;
 					float[] center = en.model.center();
 					float angle = (float)Math.atan2(targetX - center[0], targetY - center[2]);
 					en.model.globalRotate = angle;
-					en.queueOrder("move",500,0,500);
+					en.queueOrder("move",targetX,0,targetY);
 				}
 				en.tick();
 			}

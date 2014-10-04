@@ -38,7 +38,7 @@ public class Enemy extends GameEntity {
 				float[] target = orders.get(0).data;
 				float speed = 1.5F;
 				float angle = (float)Math.atan2(target[0] - center[0], target[2] - center[2]);
-				super.model.moveCenter(center[0] + speed*(float)Math.sin(angle), 0, center[2] + speed*(float)Math.sin(angle));
+				super.model.moveCenter(center[0] + speed*(float)Math.sin(angle), 0, center[2] + speed*(float)Math.cos(angle));
 				System.out.println("*");
 				System.out.println(center[0] + " " + center[1] + " " + center[2]);
 				center = model.center();

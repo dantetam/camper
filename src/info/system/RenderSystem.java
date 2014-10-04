@@ -24,17 +24,21 @@ public class RenderSystem extends BaseSystem {
 			for (int j = 0; j < model.parts.size(); j++)
 			{
 				Part part = model.parts.get(j);
-				render(part,model.globalRotate);
+				render(model,part,model.globalRotate);
 			}
 		}
 	}
 	
-	public void render(Part p, float globalRotate)
+	public void render(Model m, Part p, float globalRotate)
 	{
 		main.pushMatrix();
-		main.rotateY(globalRotate);
+		//main.rotateY((float)Math.PI);
+		//main.pushMatrix();
+		float[] c = m.center();
+		main.translate(c[0], c[1], c[2]);
+		main.rotateY(globalRotate);//(float)Math.PI/4);
 		main.pushMatrix();
-		main.translate(p.posX, p.posY, p.posZ);
+		main.translate(p.posX - c[0], p.posY - c[1], p.posZ - c[2]);
 		main.rotateX(p.rotX);
 		main.rotateY(p.rotY);
 		main.rotateZ(p.rotZ);
